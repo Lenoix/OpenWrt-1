@@ -9,6 +9,10 @@ test $version -lt 2 && {
 uci set base_config.@status[0].version=$version
 uci commit base_config
 
+sed -i '/mtkwifi/d' /etc/rc.local
+sed -i '1i /sbin/mtkwifi reload ra0' /etc/rc.local
+sed -i '1i /sbin/mtkwifi reload rax0' /etc/rc.local
+
 rm -rf /etc/config/wireless
 
 sed -i '$a src/gz openwrt_custom https://op.supes.top/packages/mipsel' /etc/opkg/distfeeds.conf
